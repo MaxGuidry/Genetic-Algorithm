@@ -1,6 +1,6 @@
 import random
 import math
-from testparser import Parser
+from cnfParser import Parser
 from chromosome import Chromosome
 def mutate(chromosome):
     newChromosome = Chromosome()
@@ -52,3 +52,6 @@ def fitness(population, cnf):
     return population
         
         
+if __name__ == '__main__':
+    import main as main
+    main.main()

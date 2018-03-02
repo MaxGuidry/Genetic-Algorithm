@@ -1,6 +1,6 @@
 import random
 import geneticOperators
-from testparser import Parser
+from cnfParser import Parser
 from chromosome import Chromosome
 
 def random_chromosome(size):
@@ -16,22 +16,23 @@ def genetic_function(cnf):
     solution = ''
     generation = 1
     population = []
-  
+    numOfKids = p.variables.__len__()/2
+    print numOfKids
     population.append(random_chromosome(p.variables.__len__()))
     population.append(random_chromosome(p.variables.__len__()))
     print population
     while solution is '':
         population = geneticOperators.fitness(population, cnf)
-        for c in population:
-            if int(c.fitness) is 1:
-              return c
+        population = sorted(population, key=lambda x: x.popfitness, reverse=True)
+
+        if int(population[0].fitness) is 1:
+            return population[0]
+        #if generation%500 is 0:
         print generation
-        population = sorted(population, key=lambda x: x.popfitness)
-        for c in population:
-            print c
+        #print "Most Fit: " + str(population[0])
         newpop = []
-        for i in range(0,population.__len__()-1):
-            kids = geneticOperators.crossover(population[i],population[i+1])
+        for i in range(0,numOfKids):
+            kids = geneticOperators.crossover(population[0], population[1])
             kid1 = geneticOperators.mutate(kids[0])
             kid2 = geneticOperators.mutate(kids[1])
 
@@ -39,8 +40,9 @@ def genetic_function(cnf):
             newpop.append(kid2)
             i+=1
         population = newpop
+        #print population.__len__()
         generation += 1
-       
+
        # for chromosome in population:
         #    if p.test_solution(chromosome) is 1:
          #       solution = chromosome
