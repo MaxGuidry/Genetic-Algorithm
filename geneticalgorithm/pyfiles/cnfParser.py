@@ -62,7 +62,7 @@ class Parser(object):
         for d in self.variables:
              if d not in characters:
                  characters.append(d)
-        self.variables = sorted(characters,key = lambda x: x)
+        #self.variables = sorted(characters,key = lambda x: x)
        
         #self.variables = characters.sort(key = lambda x: x,reverse = False)
         return self.variables   
